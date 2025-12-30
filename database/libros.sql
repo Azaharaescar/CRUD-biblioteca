@@ -1,0 +1,68 @@
+-- Base de datos: biblioteca
+-- Tabla: libros
+
+CREATE DATABASE IF NOT EXISTS biblioteca CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE biblioteca;
+
+CREATE TABLE IF NOT EXISTS libros (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  titulo VARCHAR(255) NOT NULL,
+  autor VARCHAR(150) NOT NULL,
+  anio INT NOT NULL,
+  editorial VARCHAR(150) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Datos de ejemplo generados con Mockaroo
+INSERT INTO libros (titulo, autor, anio, editorial) VALUES
+('The Great Gatsby', 'F. Scott Fitzgerald', 1925, 'Scribner'),
+('To Kill a Mockingbird', 'Harper Lee', 1960, 'J.B. Lippincott & Co.'),
+('1984', 'George Orwell', 1949, 'Secker & Warburg'),
+('Pride and Prejudice', 'Jane Austen', 1813, 'T. Egerton'),
+('The Catcher in the Rye', 'J.D. Salinger', 1951, 'Little, Brown and Company'),
+('One Hundred Years of Solitude', 'Gabriel García Márquez', 1967, 'Harper & Row'),
+('Harry Potter and the Philosopher''s Stone', 'J.K. Rowling', 1997, 'Bloomsbury'),
+('The Lord of the Rings', 'J.R.R. Tolkien', 1954, 'Allen & Unwin'),
+('Animal Farm', 'George Orwell', 1945, 'Secker & Warburg'),
+('Brave New World', 'Aldous Huxley', 1932, 'Chatto & Windus'),
+('The Hobbit', 'J.R.R. Tolkien', 1937, 'George Allen & Unwin'),
+('Fahrenheit 451', 'Ray Bradbury', 1953, 'Ballantine Books'),
+('Jane Eyre', 'Charlotte Brontë', 1847, 'Smith, Elder & Co.'),
+('Wuthering Heights', 'Emily Brontë', 1847, 'Thomas Cautley Newby'),
+('The Odyssey', 'Homer', -800, 'Ancient Greece'),
+('Crime and Punishment', 'Fyodor Dostoevsky', 1866, 'The Russian Messenger'),
+('The Brothers Karamazov', 'Fyodor Dostoevsky', 1880, 'The Russian Messenger'),
+('Moby-Dick', 'Herman Melville', 1851, 'Harper & Brothers'),
+('War and Peace', 'Leo Tolstoy', 1869, 'The Russian Messenger'),
+('Don Quixote', 'Miguel de Cervantes', 1605, 'Francisco de Robles'),
+('The Divine Comedy', 'Dante Alighieri', 1320, 'Various'),
+('Ulysses', 'James Joyce', 1922, 'Sylvia Beach'),
+('The Iliad', 'Homer', -750, 'Ancient Greece'),
+('Les Misérables', 'Victor Hugo', 1862, 'A. Lacroix, Verboeckhoven & Cie'),
+('Madame Bovary', 'Gustave Flaubert', 1857, 'Revue de Paris'),
+('The Count of Monte Cristo', 'Alexandre Dumas', 1844, 'Journal des Débats'),
+('The Alchemist', 'Paulo Coelho', 1988, 'HarperTorch'),
+('The Little Prince', 'Antoine de Saint-Exupéry', 1943, 'Reynal & Hitchcock'),
+('Catch-22', 'Joseph Heller', 1961, 'Simon & Schuster'),
+('Slaughterhouse-Five', 'Kurt Vonnegut', 1969, 'Delacorte'),
+('The Chronicles of Narnia', 'C.S. Lewis', 1950, 'Geoffrey Bles'),
+('The Picture of Dorian Gray', 'Oscar Wilde', 1890, 'Lippincott''s Monthly Magazine'),
+('Frankenstein', 'Mary Shelley', 1818, 'Lackington, Hughes, Harding, Mavor & Jones'),
+('Dracula', 'Bram Stoker', 1897, 'Archibald Constable and Company'),
+('The Grapes of Wrath', 'John Steinbeck', 1939, 'The Viking Press'),
+('Of Mice and Men', 'John Steinbeck', 1937, 'Covici Friede'),
+('Lord of the Flies', 'William Golding', 1954, 'Faber and Faber'),
+('The Road', 'Cormac McCarthy', 2006, 'Alfred A. Knopf'),
+('Life of Pi', 'Yann Martel', 2001, 'Knopf Canada'),
+('The Kite Runner', 'Khaled Hosseini', 2003, 'Riverhead Books'),
+('A Thousand Splendid Suns', 'Khaled Hosseini', 2007, 'Riverhead Books'),
+('The Book Thief', 'Markus Zusak', 2005, 'Picador'),
+('The Fault in Our Stars', 'John Green', 2012, 'Dutton Books'),
+('The Hunger Games', 'Suzanne Collins', 2008, 'Scholastic Press'),
+('Divergent', 'Veronica Roth', 2011, 'Katherine Tegen Books'),
+('Twilight', 'Stephenie Meyer', 2005, 'Little, Brown and Company'),
+('The Da Vinci Code', 'Dan Brown', 2003, 'Doubleday'),
+('Angels & Demons', 'Dan Brown', 2000, 'Pocket Books'),
+('The Girl with the Dragon Tattoo', 'Stieg Larsson', 2005, 'Norstedts Förlag'),
+('Gone Girl', 'Gillian Flynn', 2012, 'Crown Publishing Group');
