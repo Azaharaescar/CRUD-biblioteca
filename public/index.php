@@ -4,10 +4,8 @@
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../app/controllers/LibroController.php';
 
-// conecto con la base de datos
-$database = new Database();
-$db = $database->getConnection();
-$controller = new LibroController($db);
+// creo el controlador pasandole la conexion
+$controller = new LibroController($conn);
 
 // recojo la accion que quiere hacer el usuario
 $action = 'index';

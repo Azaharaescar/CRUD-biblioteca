@@ -4,91 +4,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteca - Lista de Libros</title>
+    <title>Biblioteca - Listado de Libros</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <div class="container">
-        <h1>Gestión de Libros</h1>
+        <h1>Biblioteca - Gestión de Libros</h1>
 
         <?php
-        // muestro mensajes si hay
-        if (isset($_GET['msg'])) {
-            $msg = $_GET['msg'];
-
-            if ($msg == 'created') {
-                echo '<div class="alert alert-success">Libro creado correctamente</div>';
-            } else if ($msg == 'updated') {
-                echo '<div class="alert alert-success">Libro actualizado</div>';
-            } else if ($msg == 'deleted') {
-                echo '<div class="alert alert-success">Libro eliminado</div>';
-            } else if ($msg == 'error') {
-                echo '<div class="alert alert-error">Error al procesar</div>';
-            } else if ($msg == 'notfound') {
-                echo '<div class="alert alert-error">Libro no encontrado</div>';
+        // muestro el mensaje si existe
+        if (isset($_GET['mensaje'])) {
+            $mensaje = $_GET['mensaje'];
+            if ($mensaje == 'creado') {
+                echo '<div class="mensaje exito">Libro creado correctamente</div>';
+            }
+            if ($mensaje == 'editado') {
+                echo '<div class="mensaje exito">Libro editado correctamente</div>';
+            }
+            if ($mensaje == 'eliminado') {
+                echo '<div class="mensaje exito">Libro eliminado correctamente</div>';
+            }
+            if ($mensaje == 'error') {
+                echo '<div class="mensaje error">Error al procesar la solicitud</div>';
             }
         }
         ?>
 
-        <div class="header-actions">
-            <a href="index.php?action=create" class="btn btn-primary">Nuevo Libro</a>
-            <a href="index.php?action=exportPdf" class="btn btn-success">Exportar PDF</a>
+        <div class="acciones">
+            <a href="index.php?action=create" class="btn btn-primary">Agregar Libro</a>
+            <a href="index.php?action=exportPdf" class="btn btn-secondary">Exportar a PDF</a>
         </div>
 
-        <?php
-        $libros = $result->fetchAll(PDO::FETCH_ASSOC);
-        $totalLibros = count($libros);
-
-        if ($totalLibros > 0) {
-        ?>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Título</th>
-                        <th>Autor</th>
-                        <th>Año</th>
-                        <th>Editorial</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    for ($i = 0; $i < $totalLibros; $i++) {
-                        $libro = $libros[$i];
-                    ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($libro['id']); ?></td>
-                            <td><?php echo htmlspecialchars($libro['titulo']); ?></td>
-                            <td><?php echo htmlspecialchars($libro['autor']); ?></td>
-                            <td><?php echo htmlspecialchars($libro['anio']); ?></td>
-                            <td><?php echo htmlspecialchars($libro['editorial']); ?></td>
-                            <td>
-                                <div class="actions">
-                                    <a href="index.php?action=edit&id=<?php echo $libro['id']; ?>"
-                                        class="btn btn-warning btn-small">Editar</a>
-                                    <a href="index.php?action=delete&id=<?php echo $libros[$i]['id']; ?>"
-                                        class="btn btn-danger btn-small"
-                                        onclick="return confirm('¿Seguro que quieres borrarlo?')">Eliminar</a>
-                                </div>
-                            </td>
-                        </tr>
-                    <?php
-                    }
-                    ?>
-                </tbody>
-            </table>
-        <?php
-        } else {
-        ?>
-            <div class="empty-state">
-                <p>No hay libros todavía</p>
-                <a href="index.php?action=create" class="btn btn-primary">Añadir el primero</a>
-            </div>
-        <?php
-        }
-        ?>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titulo</th>
+                    <th>Autor</th>
+                    <th>Año</th>
+                    <th>Editorial</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // recorro los libros con un for
+                $total = count($libros);
+                for ($i = 0; $i < $total; $i++) {
+                    $libro = $libros[$i];
+                    echo '<tr>';
+                    echo '<td>' . $libro['id'] . '</td>';
+                    echo '<td>' . $libro['titulo'] . '</td>';
+                    echo '<td>' . $libro['autor'] . '</td>';
+                    echo '<td>' . $libro['anio'] . '</td>';
+                    echo '<td>' . $libro['editorial'] . '</td>';
+                    echo '<td class="acciones">';
+                    echo '<a href="index.php?action=edit&id=' . $libro['id'] . '" class="btn btn-edit">Editar</a> ';
+                    echo '<a href="index.php?action=delete&id=' . $libro['id'] . '" class="btn btn-delete" onclick="return confirm(\'¿Seguro que quieres eliminar este libro?\')">Eliminar</a>';
+                    echo '</td>';
+                    echo '</tr>';
+                }
+                ?>
+            </tbody>
+        </table>
     </div>
 </body>
 

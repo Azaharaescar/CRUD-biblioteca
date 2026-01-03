@@ -1,10 +1,6 @@
 -- Base de datos: biblioteca
 -- Tabla: libros
 
-CREATE DATABASE IF NOT EXISTS biblioteca CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-
-USE biblioteca;
-
 CREATE TABLE IF NOT EXISTS libros (
   id INT AUTO_INCREMENT PRIMARY KEY,
   titulo VARCHAR(255) NOT NULL,

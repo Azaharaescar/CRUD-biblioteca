@@ -1,59 +1,70 @@
 <?php
-require_once __DIR__ . '/../../config/database.php';
+// modelo de libro
 
-// modelo para trabajar con libros
 class Libro
 {
     private $conn;
-    private $table_name = "libros";
-    public $id;
-    public $titulo;
-    public $autor;
-    public $anio;
-    public $editorial;
+    private $table = 'libros';
 
-    public function __construct($db)
+    public function __construct($conexion)
     {
-        $this->conn = $db;
+        $this->conn = $conexion;
     }
 
-    // obtiene todos los libros ordenados
+    // lista todos los libros
     public function listar()
     {
-        $query = "SELECT * FROM " . $this->table_name . " ORDER BY id DESC";
-        return $this->conn->query($query);
+        $query = "SELECT * FROM " . $this->table . " ORDER BY id DESC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // busca un libro por su id
-    public function obtenerPorId()
+    // obtiene un libro por su id
+    public function obtenerPorId($id)
     {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE id = :id LIMIT 1";
+        $query = "SELECT * FROM " . $this->table . " WHERE id = :id";
         $stmt = $this->conn->prepare($query);
-        $stmt->execute([':id' => $this->id]);
-        return $stmt;
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    // inserta un libro nuevo
-    public function crear()
+    // crea un libro nuevo
+    public function crear($titulo, $autor, $anio, $editorial)
     {
-        $query = "INSERT INTO " . $this->table_name . " (titulo, autor, anio, editorial) VALUES (:titulo, :autor, :anio, :editorial)";
+        $query = "INSERT INTO " . $this->table . " (titulo, autor, anio, editorial) VALUES (:titulo, :autor, :anio, :editorial)";
         $stmt = $this->conn->prepare($query);
-        return $stmt->execute([':titulo' => $this->titulo, ':autor' => $this->autor, ':anio' => $this->anio, ':editorial' => $this->editorial]);
+
+        $stmt->bindParam(':titulo', $titulo);
+        $stmt->bindParam(':autor', $autor);
+        $stmt->bindParam(':anio', $anio);
+        $stmt->bindParam(':editorial', $editorial);
+
+        return $stmt->execute();
     }
 
-    // actualiza un libro existente
-    public function editar()
+    // edita un libro existente
+    public function editar($id, $titulo, $autor, $anio, $editorial)
     {
-        $query = "UPDATE " . $this->table_name . " SET titulo=:titulo, autor=:autor, anio=:anio, editorial=:editorial WHERE id=:id";
+        $query = "UPDATE " . $this->table . " SET titulo = :titulo, autor = :autor, anio = :anio, editorial = :editorial WHERE id = :id";
         $stmt = $this->conn->prepare($query);
-        return $stmt->execute([':titulo' => $this->titulo, ':autor' => $this->autor, ':anio' => $this->anio, ':editorial' => $this->editorial, ':id' => $this->id]);
+
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':titulo', $titulo);
+        $stmt->bindParam(':autor', $autor);
+        $stmt->bindParam(':anio', $anio);
+        $stmt->bindParam(':editorial', $editorial);
+
+        return $stmt->execute();
     }
 
-    // borra un libro
-    public function eliminar()
+    // elimina un libro
+    public function eliminar($id)
     {
-        $query = "DELETE FROM " . $this->table_name . " WHERE id=:id";
+        $query = "DELETE FROM " . $this->table . " WHERE id = :id";
         $stmt = $this->conn->prepare($query);
-        return $stmt->execute([':id' => $this->id]);
+        $stmt->bindParam(':id', $id);
+        return $stmt->execute();
     }
 }
